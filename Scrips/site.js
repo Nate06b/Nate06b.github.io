@@ -28,3 +28,7 @@ if (greeting)
 {
     greeting.textContent = welcomeMessage;
 }
+
+localStorage.setItem("It's a secret to everybody.", "It's a secret to everybody.");
+
+console.log(localStorage.getItem("It's a secret to everybody."));
