@@ -89,3 +89,28 @@ const resetTimer = () => {
 
 
 showImages()
+
+const todoList = document.getElementById('todo-list')
+const todoInput = document.getElementById('new-todo')
+const todos = JSON.parse(localStorage.getItem('todo-list')) || []
+
+const renderToDo = () => {
+    todoList.innerHTML = ""
+    todos.forEach(todo => { // for each input a new list will be created
+        const list = document.createElement('li')
+        list.className = 'todo' // add class so we can add text to the list
+        list.textContent = todo.text // add the text to the list
+        todoList.appendChild(list) // adds new list to the ul
+    })
+}
+
+document.getElementById('add-btn').addEventListener('click', () => { // add event listener to the button
+    if (todoInput.value.trim()) {
+    todos.push({ text: todoInput.value.trim(), completed: false }) // add the new input
+    localStorage.setItem("todo-list", JSON.stringify(todos)) // save the todo list
+    todoInput.value = "" // clear the input
+    renderToDo() // call function
+    }
+})
+
+renderToDo()
