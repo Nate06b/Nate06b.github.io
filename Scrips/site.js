@@ -114,3 +114,27 @@ document.getElementById('add-btn').addEventListener('click', () => { // add even
 })
 
 renderToDo()
+
+
+// Assignment API Fetch
+
+const randomPokemon = document.getElementById('randomPokemon')
+
+const getRandomPokemon = async () => {
+
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + (Math.floor(Math.random() * 150) + 1)
+    const response = await fetch(url)
+    const pokemonObj = await response.json()
+    return pokemonObj
+
+}
+
+const renderPokemon = (pokemonObj) => {
+
+    randomPokemon.innerHTML = " "
+
+    const img = document.createElement('img')
+    img.src = pokemonObj.sprites.front_default
+    img.alt = pokemonObj.name
+    randomPokemon.append(img)
+}
