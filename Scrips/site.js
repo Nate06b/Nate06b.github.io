@@ -1,4 +1,41 @@
 
+// Assignment API Fetch
+
+const randomPokemon = document.getElementById('randomPokemon')
+
+const getRandomPokemon = async () => {
+
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + (Math.floor(Math.random() * 150) + 1)
+    const response = await fetch(url)
+    const pokemonObj = await response.json()
+    return pokemonObj
+
+}
+
+const renderPokemon = (pokemonObj) => {
+
+    randomPokemon.innerHTML = ""
+
+    const img = document.createElement('img')
+    img.src = pokemonObj.sprites.front_default
+    img.alt = pokemonObj.name
+    randomPokemon.append(img)
+}
+
+const LoadRandonPokemon = async () => {
+    
+    const pokemon = await getRandomPokemon()
+    
+    if (!pokemon) alert('Error loading Pokemon')
+    
+    else renderPokemon(pokemon)
+}
+
+
+window.addEventListener('load', LoadRandonPokemon)
+
+
+
 console.log('JavaScript is Working');
 
 const hours = new Date().getHours() // get the current hour
@@ -104,37 +141,18 @@ const renderToDo = () => {
     })
 }
 
-document.getElementById('add-btn').addEventListener('click', () => { // add event listener to the button
-    if (todoInput.value.trim()) {
-    todos.push({ text: todoInput.value.trim(), completed: false }) // add the new input
-    localStorage.setItem("todo-list", JSON.stringify(todos)) // save the todo list
-    todoInput.value = "" // clear the input
-    renderToDo() // call function
-    }
-})
+const addButton = document.getElementById('add-btn');
+if (addButton) {
+    addButton.addEventListener('click', () => { // add event listener to the button
+        if (todoInput.value.trim()) {
+            todos.push({ text: todoInput.value.trim(), completed: false }) // add the new input
+            localStorage.setItem("todo-list", JSON.stringify(todos)) // save the todo list
+            todoInput.value = "" // clear the input
+            renderToDo() // call function
+        }
+    });
+}
 
 renderToDo()
 
 
-// Assignment API Fetch
-
-const randomPokemon = document.getElementById('randomPokemon')
-
-const getRandomPokemon = async () => {
-
-    const url = 'https://pokeapi.co/api/v2/pokemon/' + (Math.floor(Math.random() * 150) + 1)
-    const response = await fetch(url)
-    const pokemonObj = await response.json()
-    return pokemonObj
-
-}
-
-const renderPokemon = (pokemonObj) => {
-
-    randomPokemon.innerHTML = " "
-
-    const img = document.createElement('img')
-    img.src = pokemonObj.sprites.front_default
-    img.alt = pokemonObj.name
-    randomPokemon.append(img)
-}
