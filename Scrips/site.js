@@ -5,7 +5,7 @@ const randomPokemon = document.getElementById('randomPokemon')
 
 const getRandomPokemon = async () => {
 
-    const url = 'https://pokeapi.co/api/v2/pokemon/' + (Math.floor(Math.random() * 150) + 1)
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + Math.floor(Math.random() * 150) 
     const response = await fetch(url)
     const pokemonObj = await response.json()
     return pokemonObj
@@ -23,12 +23,12 @@ const renderPokemon = (pokemonObj) => {
 }
 
 const LoadRandonPokemon = async () => {
-    
+try
+{
     const pokemon = await getRandomPokemon()
-    
-    if (!pokemon) alert('Error loading Pokemon')
-    
-    else renderPokemon(pokemon)
+    renderPokemon(pokemon)
+}
+catch (error) { alert('Error fetching Pokemon:', error) }
 }
 
 
@@ -152,7 +152,5 @@ if (addButton) {
         }
     });
 }
-
-renderToDo()
 
 
